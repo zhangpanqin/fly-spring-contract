@@ -1,10 +1,10 @@
-package com.fly.spring.contract.study;
+package com.mflyyou.contract.user;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FlySpringContractApplicationTests {
+class UserManagementServiceApplicationTests {
 
     @Test
     void contextLoads() {

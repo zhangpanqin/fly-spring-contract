@@ -1,0 +1,18 @@
+version: '3'
+services:
+  nexus:
+    image: sonatype/nexus3
+    restart: always
+    container_name: fly-spring-contract-nexus3
+    ports:
+      - "9908:8081"
+    networks:
+      - fly-spring-contract
+    volumes:
+      - fly-spring-contract-nexus-data:/nexus-data
+networks:
+  fly-spring-contract:
+    driver: bridge
+volumes:
+  fly-spring-contract-nexus-data:
+    driver: local

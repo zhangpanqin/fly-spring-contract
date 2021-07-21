@@ -1,13 +1,13 @@
-package com.fly.spring.contract.study;
+package com.mflyyou.contract.user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FlySpringContractApplication {
+public class UserManagementServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FlySpringContractApplication.class, args);
+        SpringApplication.run(UserManagementServiceApplication.class, args);
     }
 
 }

@@ -1,31 +1,55 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.2'
-    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id "com.avast.gradle.docker-compose" version "0.14.0" apply false
+    id 'org.springframework.boot' version '2.5.2' apply false
+    id "io.spring.dependency-management" version "1.0.11.RELEASE" apply false
+    id "org.springframework.cloud.contract" version "3.0.3" apply false
 }
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
+allprojects {
+    java {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    repositories {
+//        maven {
+//            url "${mavenPublicUrl}"
+//            credentials {
+//                username "${mavenUsername}"
+//                password "${mavenPassword}"
+//            }
+//        }
+        mavenLocal()
+        mavenCentral()
     }
 }
 
-repositories {
-    mavenCentral()
-}
+subprojects {
+    apply plugin: "java"
+    apply plugin: "maven-publish"
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
+    configurations.all {
+        // Check for updates every build
+        resolutionStrategy.cacheChangingModulesFor 0, "seconds"
+    }
 
-test {
-    useJUnitPlatform()
+    configurations {
+        parentBom
+        runtimeOnly.extendsFrom(parentBom)
+        compileOnly.extendsFrom(parentBom)
+        annotationProcessor.extendsFrom(parentBom)
+        implementation.extendsFrom(parentBom)
+        api.extendsFrom(parentBom)
+    }
+    dependencies {
+//        org.springframework.boot:spring-boot-dependencies:2.5.2
+        parentBom platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
+    }
+    wrapper {
+        gradleVersion = "7.1.1"
+    }
+
+    tasks.withType(Test) {
+        useJUnitPlatform()
+    }
 }
