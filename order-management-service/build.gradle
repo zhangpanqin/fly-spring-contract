@@ -18,6 +18,7 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation("io.rest-assured:spring-mock-mvc")
+    testImplementation("org.hibernate.validator:hibernate-validator")
     testImplementation('org.springframework.cloud:spring-cloud-contract-verifier')
 
 }
@@ -30,12 +31,6 @@ contracts {
     contractsDslDir = new File("${projectDir}/src/contractTest/resources")
     baseClassMappings {
         baseClassMapping(".*ordermgmt.order.*", "com.mflyyou.contract.order.BaseContractOrderTest")
-    }
-}
-contractTest {
-    useJUnitPlatform()
-    testLogging {
-        exceptionFormat = 'full'
     }
 }
 publishing {

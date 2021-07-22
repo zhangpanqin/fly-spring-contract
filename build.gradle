@@ -51,12 +51,6 @@ subprojects {
 //        org.springframework.boot:spring-boot-dependencies:2.5.2
         parentBom platform("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
         parentBom platform(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
-
-        testImplementation("org.junit.jupiter:junit-jupiter-api")
-        testImplementation("org.junit.jupiter:junit-jupiter-params")
-        testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-        testRuntimeOnly("org.junit.vintage:junit-vintage-engine")
-        testImplementation("org.mockito:mockito-junit-jupiter")
     }
     wrapper {
         gradleVersion = "7.1.1"

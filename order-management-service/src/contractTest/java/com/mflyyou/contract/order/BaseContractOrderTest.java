@@ -10,6 +10,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 public class BaseContractOrderTest extends BaseContractTest {
+
     @Autowired
     private OrderService orderService;
 
