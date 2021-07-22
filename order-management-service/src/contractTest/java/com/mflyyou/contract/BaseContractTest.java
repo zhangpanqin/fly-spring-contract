@@ -1,6 +1,5 @@
-package com.mflyyou.contract.order;
+package com.mflyyou.contract;
 
-import com.mflyyou.contract.order.contract.order.OrderManagementServiceApplication;
 import io.restassured.config.EncoderConfig;
 import io.restassured.config.LogConfig;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
@@ -10,18 +9,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.context.WebApplicationContext;
 
-@SpringBootTest(classes = OrderManagementServiceApplication.class)
-@ActiveProfiles("test")
+@SpringBootTest
 public abstract class BaseContractTest {
     @Autowired
-    protected WebApplicationContext context;
+    protected WebApplicationContext webApplicationContext;
 
     @BeforeEach
     public void init() {
-        RestAssuredMockMvc.webAppContextSetup(context);
+        RestAssuredMockMvc.webAppContextSetup(this.webApplicationContext);
     }
 
     @AfterEach

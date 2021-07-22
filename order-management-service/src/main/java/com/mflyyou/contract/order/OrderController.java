@@ -1,4 +1,4 @@
-package com.mflyyou.contract.order.contract.order;
+package com.mflyyou.contract.order;
 
 import com.mflyyou.contract.order.sdk.OrderApi;
 import com.mflyyou.contract.order.sdk.request.CreateOrderRequest;

@@ -1,6 +1,6 @@
 package com.mflyyou.contract.order;
 
-import com.mflyyou.contract.order.contract.order.OrderService;
+import com.mflyyou.contract.BaseContractTest;
 import com.mflyyou.contract.order.sdk.request.CreateOrderRequest;
 import com.mflyyou.contract.order.sdk.response.CreateOrderResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +17,8 @@ public class BaseContractOrderTest extends BaseContractTest {
     public void setup() {
         create();
     }
-    private void create(){
+
+    private void create() {
         when(orderService.create(any(CreateOrderRequest.class)))
                 .thenReturn(CreateOrderResponse.builder()
                         .id(1L)
