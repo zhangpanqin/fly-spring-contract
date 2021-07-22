@@ -1,16 +1,50 @@
 plugins {
     id "application"
     id "org.springframework.boot"
+    id "org.springframework.cloud.contract"
+//    id "org.unbroken-dome.test-sets"
 }
+
 application{
     mainClassName("com.mflyyou.contract.order.OrderManagementServiceApplication")
 }
+
 dependencies {
+    implementation(project(":contract-sdk"))
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
+
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation("org.mockito:mockito-inline")
+    testImplementation("io.rest-assured:spring-mock-mvc")
+    testImplementation 'org.springframework.cloud:spring-cloud-contract-verifier'
+
+}
+
+contracts {
+    testFramework = "JUNIT5"
+    failOnNoContracts = false
+    sourceSet = "contractTest"
+    baseClassForTests = "com.mflyyou.contract.order.BaseContractTest"
+    contractsDslDir = new File("${projectDir}/src/contractTest/resources")
+    baseClassMappings {
+        baseClassMapping(".*ordermgmt.order.*", "com.mflyyou.contract.order.BaseContractOrderTest")
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            url = project.version.endsWith("SNAPSHOT") ? "$mavenSnapshotsUrl" : "$mavenReleaseUrl"
+            credentials {
+                username = "$mavenUsername"
+                password = "$mavenPassword"
+            }
+        }
+    }
 }
 
 apply from: "${rootProject.projectDir}/gradle/docker-compose/docker-compose.gradle"

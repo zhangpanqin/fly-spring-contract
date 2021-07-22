@@ -1,3 +1,5 @@
 rootProject.name = 'fly-spring-contract'
 include "order-management-service"
 include "user-management-service"
+include 'contract-sdk'
+

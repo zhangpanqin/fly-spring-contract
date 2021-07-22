@@ -1,4 +1,4 @@
-package com.mflyyou.contract.user;
+package com.mflyyou.contract.order.contract.user;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
