@@ -18,7 +18,6 @@ dependencies {
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation("io.rest-assured:spring-mock-mvc")
-    testImplementation("org.hibernate.validator:hibernate-validator")
     testImplementation('org.springframework.cloud:spring-cloud-contract-verifier')
 
 }
@@ -33,14 +32,22 @@ contracts {
         baseClassMapping(".*ordermgmt.order.*", "com.mflyyou.contract.order.BaseContractOrderTest")
     }
 }
+
 publishing {
     repositories {
         maven {
+            allowInsecureProtocol=true
             url = project.version.endsWith("SNAPSHOT") ? "$mavenSnapshotsUrl" : "$mavenReleaseUrl"
             credentials {
                 username = "$mavenUsername"
                 password = "$mavenPassword"
             }
+        }
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            artifact bootJar
+            artifact verifierStubsJar
         }
     }
 }

@@ -35,8 +35,10 @@ subprojects {
     apply plugin: "groovy"
 
     configurations.all {
-        // Check for updates every build
-        resolutionStrategy.cacheChangingModulesFor 0, "seconds"
+        resolutionStrategy {
+            cacheChangingModulesFor 0,"seconds"
+            force 'com.jayway.jsonpath:json-path:2.6.0'
+        }
     }
 
     configurations {
