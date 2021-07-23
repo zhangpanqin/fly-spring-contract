@@ -1,7 +1,7 @@
 package com.mflyyou.contract.order;
 
-import com.mflyyou.contract.order.sdk.request.CreateOrderRequest;
-import com.mflyyou.contract.order.sdk.response.CreateOrderResponse;
+import com.mflyyou.contract.sdk.request.CreateOrderRequest;
+import com.mflyyou.contract.sdk.response.CreateOrderResponse;
 import org.springframework.stereotype.Service;
 
 

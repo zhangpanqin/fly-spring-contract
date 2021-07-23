@@ -1,4 +1,4 @@
-package com.mflyyou.contract.order.sdk.request;
+package com.mflyyou.contract.sdk.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

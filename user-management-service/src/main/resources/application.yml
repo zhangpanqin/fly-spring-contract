@@ -1,2 +1,15 @@
 server:
   port: 8081
+feign:
+  hystrix:
+    enabled: false
+  client:
+    config:
+      default:
+        connectTimeout: 2000
+        readTimeout: 30000
+  okhttp:
+    enabled: true
+app:
+  feignclient:
+    order-management-url: http://localhost:8080

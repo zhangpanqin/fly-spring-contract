@@ -1,8 +1,8 @@
 package com.mflyyou.contract.order;
 
-import com.mflyyou.contract.order.sdk.OrderApi;
-import com.mflyyou.contract.order.sdk.request.CreateOrderRequest;
-import com.mflyyou.contract.order.sdk.response.CreateOrderResponse;
+import com.mflyyou.contract.sdk.OrderApi;
+import com.mflyyou.contract.sdk.request.CreateOrderRequest;
+import com.mflyyou.contract.sdk.response.CreateOrderResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
