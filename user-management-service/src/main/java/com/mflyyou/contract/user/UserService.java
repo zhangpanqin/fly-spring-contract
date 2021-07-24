@@ -9,6 +9,7 @@ import com.mflyyou.contract.sdk.response.UserResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.ThreadLocalRandom;
@@ -20,10 +21,12 @@ public class UserService {
 
     private final OrderClient orderClient;
     private final UserRepository userRepository;
+    private final RedisTemplate<String, String> redisTemplate;
 
-    public UserService(OrderClient orderClient, UserRepository userRepository) {
+    public UserService(OrderClient orderClient, UserRepository userRepository, RedisTemplate<String, String> redisTemplate) {
         this.orderClient = orderClient;
         this.userRepository = userRepository;
+        this.redisTemplate = redisTemplate;
     }
 
     public UserResponse getUser(Long userId) {
@@ -34,7 +37,7 @@ public class UserService {
                 .build();
     }
 
-    @CacheEvict(value = CACHE_NAME,allEntries = true)
+    @CacheEvict(value = CACHE_NAME, allEntries = true)
     public CreateUserResponse createUser(CreateUserRequest createUserRequest) {
         UserEntity userEntity = new UserEntity();
         userEntity.setId(ThreadLocalRandom.current().nextLong());
@@ -47,7 +50,8 @@ public class UserService {
 
     @Cacheable(value = CACHE_NAME)
     public GetUserResponse getUserInfo(Long id) {
-        log.info("执行了");
+        log.info("执行了,{}", redisTemplate.opsForValue().get("key22"));
+
         return userRepository.findById(id).map(userEntity -> GetUserResponse.builder()
                 .username(userEntity.getUsername())
                 .id(userEntity.getId())

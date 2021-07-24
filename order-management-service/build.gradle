@@ -32,7 +32,8 @@ contracts {
         baseClassMapping(".*ordermgmt.order.*", "com.mflyyou.contract.order.BaseContractOrderTest")
     }
 }
-
+contractTest.shouldRunAfter test
+check.dependsOn contractTest
 publishing {
     repositories {
         maven {

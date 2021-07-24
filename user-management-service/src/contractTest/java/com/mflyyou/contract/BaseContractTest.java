@@ -5,17 +5,25 @@ import io.restassured.config.LogConfig;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig;
 import io.restassured.module.mockmvc.specification.MockMvcRequestSpecification;
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.contract.stubrunner.spring.AutoConfigureStubRunner;
 import org.springframework.cloud.contract.stubrunner.spring.StubRunnerProperties;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.context.WebApplicationContext;
+import redis.embedded.RedisServer;
 
 @SpringBootTest
 @AutoConfigureStubRunner
+@ActiveProfiles("test")
+@AutoConfigureEmbeddedDatabase
 public abstract class BaseContractTest {
+
     @Autowired
     protected WebApplicationContext webApplicationContext;
 

@@ -8,3 +8,6 @@ stubrunner:
     - com.mflyyou:order-management-service:+:stubs:8080
   repositoryRoot: http://localhost:9908/repository/maven-public/
   stubsMode: REMOTE
+spring:
+  flyway:
+    enabled: true
