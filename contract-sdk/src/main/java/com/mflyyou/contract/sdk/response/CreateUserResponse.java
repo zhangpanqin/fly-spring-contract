@@ -11,8 +11,7 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponse implements Serializable {
-    private static final long serialVersionUID = 6693509985689881097L;
-    private Long orderId;
-    private Long userId;
+public class CreateUserResponse implements Serializable {
+    private static final long serialVersionUID = 5387468228952580023L;
+    private Long id;
 }

@@ -38,6 +38,8 @@ subprojects {
         resolutionStrategy {
             cacheChangingModulesFor 0,"seconds"
             force 'com.jayway.jsonpath:json-path:2.6.0'
+            force 'io.zonky.test:embedded-database-spring-test:2.0.0'
+            force 'it.ozimov:embedded-redis:0.7.3'
         }
     }
 

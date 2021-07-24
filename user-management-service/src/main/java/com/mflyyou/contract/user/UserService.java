@@ -1,16 +1,29 @@
 package com.mflyyou.contract.user;
 
 import com.mflyyou.contract.sdk.request.CreateOrderRequest;
+import com.mflyyou.contract.sdk.request.CreateUserRequest;
 import com.mflyyou.contract.sdk.response.CreateOrderResponse;
+import com.mflyyou.contract.sdk.response.CreateUserResponse;
+import com.mflyyou.contract.sdk.response.GetUserResponse;
 import com.mflyyou.contract.sdk.response.UserResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-@Service
-public class UserService {
-    private final OrderClient orderClient;
+import java.util.concurrent.ThreadLocalRandom;
 
-    public UserService(OrderClient orderClient) {
+@Service
+@Slf4j
+public class UserService {
+    private static final String CACHE_NAME = "REDIS_USER_INFO";
+
+    private final OrderClient orderClient;
+    private final UserRepository userRepository;
+
+    public UserService(OrderClient orderClient, UserRepository userRepository) {
         this.orderClient = orderClient;
+        this.userRepository = userRepository;
     }
 
     public UserResponse getUser(Long userId) {
@@ -19,5 +32,26 @@ public class UserService {
                 .userId(userId)
                 .orderId(createOrderResponse.getId())
                 .build();
+    }
+
+    @CacheEvict(value = CACHE_NAME,allEntries = true)
+    public CreateUserResponse createUser(CreateUserRequest createUserRequest) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(ThreadLocalRandom.current().nextLong());
+        userEntity.setUsername(createUserRequest.getUsername());
+        userRepository.save(userEntity);
+        return CreateUserResponse.builder()
+                .id(userEntity.getId())
+                .build();
+    }
+
+    @Cacheable(value = CACHE_NAME)
+    public GetUserResponse getUserInfo(Long id) {
+        log.info("执行了");
+        return userRepository.findById(id).map(userEntity -> GetUserResponse.builder()
+                .username(userEntity.getUsername())
+                .id(userEntity.getId())
+                .build())
+                .orElseThrow(() -> new RuntimeException("查询的数据不存在"));
     }
 }
