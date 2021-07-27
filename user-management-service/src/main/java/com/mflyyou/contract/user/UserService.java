@@ -1,5 +1,6 @@
 package com.mflyyou.contract.user;
 
+import brave.Tracer;
 import com.mflyyou.contract.sdk.request.CreateOrderRequest;
 import com.mflyyou.contract.sdk.request.CreateUserRequest;
 import com.mflyyou.contract.sdk.response.CreateOrderResponse;
@@ -18,19 +19,23 @@ import java.util.concurrent.ThreadLocalRandom;
 @Slf4j
 public class UserService {
     private static final String CACHE_NAME = "REDIS_USER_INFO";
-
+    private final Tracer tracer;
     private final OrderClient orderClient;
     private final UserRepository userRepository;
     private final RedisTemplate<String, String> redisTemplate;
 
-    public UserService(OrderClient orderClient, UserRepository userRepository, RedisTemplate<String, String> redisTemplate) {
+    public UserService(Tracer tracer, OrderClient orderClient, UserRepository userRepository, RedisTemplate<String, String> redisTemplate) {
+        this.tracer = tracer;
         this.orderClient = orderClient;
         this.userRepository = userRepository;
         this.redisTemplate = redisTemplate;
     }
 
     public UserResponse getUser(Long userId) {
-        CreateOrderResponse createOrderResponse = orderClient.create(CreateOrderRequest.builder().build());
+        log.info("traceId: {}",tracer.currentSpan().context().traceIdString());
+        CreateOrderResponse createOrderResponse = orderClient.create(CreateOrderRequest.builder()
+                .userId(userId)
+                .build());
         return UserResponse.builder()
                 .userId(userId)
                 .orderId(createOrderResponse.getId())

@@ -35,6 +35,13 @@ services:
       - fly-spring-contract
     volumes:
       - fly-spring-contract-redis-data:/bitnami/redis/data
+  grafana:
+    container_name: fly-spring-contract-grafana
+      image: grafana/grafana:8.0.6
+      ports:
+        - '9912:3000'
+      networks:
+        - fly-spring-contract
 networks:
   fly-spring-contract:
     driver: bridge

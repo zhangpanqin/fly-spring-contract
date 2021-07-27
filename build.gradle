@@ -40,6 +40,8 @@ subprojects {
             force 'com.jayway.jsonpath:json-path:2.6.0'
             force 'io.zonky.test:embedded-database-spring-test:2.0.0'
             force 'it.ozimov:embedded-redis:0.7.3'
+            force 'org.springframework.cloud:spring-cloud-starter-zipkin:2.2.8.RELEASE'
+            force 'net.logstash.logback:logstash-logback-encoder:6.4'
         }
     }
 

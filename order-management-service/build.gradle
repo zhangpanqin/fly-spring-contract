@@ -9,7 +9,9 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
-
+    implementation("org.springframework.cloud:spring-cloud-starter-sleuth")
+    implementation("org.springframework.cloud:spring-cloud-starter-zipkin")
+    implementation("net.logstash.logback:logstash-logback-encoder")
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation("io.rest-assured:spring-mock-mvc")

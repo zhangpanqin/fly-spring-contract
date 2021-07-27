@@ -14,6 +14,15 @@ app:
   feignclient:
     order-management-url: http://localhost:8080
 spring:
+  application:
+    name: user-management-service
+  sleuth:
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://localhost:9411
+    service:
+      name: ${spring.application.name}
   cache:
     type: redis
     redis:

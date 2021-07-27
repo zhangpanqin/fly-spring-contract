@@ -14,4 +14,5 @@ import java.math.BigDecimal;
 public class CreateOrderRequest {
     private String orderDescription;
     private BigDecimal price;
+    private Long userId;
 }
